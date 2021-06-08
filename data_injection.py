@@ -2,9 +2,7 @@
 Data Injection Python code by Pints [pin2sharma248@gmail.com]
 
 '''
-
-import requests
-import json
+import sys
 import connect_db
 import create_table
 import insert_data
@@ -12,9 +10,12 @@ import csv
 import pandas as pd
 import glob
 
-# Please enter your table name for creating tables scheme
-# into given database server
-TABLE_NAME = 'Table_name'
+# following details are taken by command line arguments
+HOSTNAME = sys.argv[1] # database host machine
+USERNAME = sys.argv[2] # DB host machine username
+PASSWORD = sys.argv[3] # DB host machine password
+DATABASE_NAME = sys.argv[4] # DB Name
+TABLE_NAME = sys.argv[5] # Table name to store data
 
 
 # get all csv files from current directory [where this main file is present]
@@ -60,7 +61,11 @@ def main():
         if success:
             for file in csv_file_list:
                 # connect to database
-                success,db_connection = connect_db.connect_to_database()
+                success,db_connection = connect_db.connect_to_database(HOSTNAME,
+                                                                       USERNAME,
+                                                                       PASSWORD,
+                                                                       DATABASE_NAME
+                                                                       )
 
                 # if connected to database
                 if success:
