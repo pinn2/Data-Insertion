@@ -6,14 +6,12 @@ Connecting to Given DataBase Python code by Pints [pin2sharma248@gmail.com]
 import mysql.connector
 from mysql.connector import errorcode
 
-HOSTNAME = "host_machine_name"
-USERNAME = "your_username"
-PASSWORD = "your_password"
-DATABASE_NAME = "database_name"
-
-
 # create new Database
-def createDatabase():
+def createDatabase(HOSTNAME,
+                   USERNAME,
+                   PASSWORD,
+                   DATABASE_NAME
+                        ):
     try:
         mydb = mysql.connector.connect(
         host=HOSTNAME,
@@ -34,7 +32,11 @@ def createDatabase():
         return(False,None)
 
 # connect to given or already existed database
-def connect_to_database():
+def connect_to_database(HOSTNAME,
+                        USERNAME,
+                        PASSWORD,
+                        DATABASE_NAME
+                        ):
     try:
         mydb = mysql.connector.connect(
           host=HOSTNAME,
@@ -56,8 +58,16 @@ def connect_to_database():
 
           # if database is not exist then creating a new database
           # and then connecting with new Database
-          if createDatabase()[0]:
-              connect_to_database()
+          if createDatabase(HOSTNAME,
+                            USERNAME,
+                            PASSWORD,
+                            DATABASE_NAME
+                                  )[0]:
+              connect_to_database(HOSTNAME,
+                                  USERNAME,
+                                  PASSWORD,
+                                  DATABASE_NAME
+                                      ):
           else:
               return(False,None)
 
